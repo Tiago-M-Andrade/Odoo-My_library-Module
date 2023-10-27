@@ -33,6 +33,7 @@
                         <group>
                             <field name="short_name"/>
                             <field name="date_release"/>
+                            <button name="change_release_date" string="Update Date" type="object"/>
                             <field name="date_updated"/>
                             <field name="cover" widget="image" class="oe_avatar"/>
                             <field name="reader_rating"/>

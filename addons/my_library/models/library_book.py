@@ -121,6 +121,17 @@ class LibraryBook(models.Model):
     print("ALL MEMBERS:", all_members)
     return True
 
+  def change_release_date(self):
+    self.ensure_one()
+    self.date_release = fields.Date.today()
+
+  def find_book(self):
+    domain = ['|', '&', ('name', 'ilike', 'Book Name'),
+    ('category_id.name', 'ilike', 'Category Name'), '&', 
+    ('name', 'ilike', 'Book Name 2'), 
+    ('category_id.name', 'ilike', 'Category Name 2')]
+    books = self.search(domain)
+
 class ResPartner(models.Model):
   _inherit = 'res.partner'
   _order = 'name'
@@ -133,6 +144,12 @@ class ResPartner(models.Model):
   def _compute_count_books(self):
     for r in self:
       r.count_books = len(r.authored_book_ids)
+
+  def find_partner(self):
+    PartnerObj = self.env['res.partner']
+    domain = ['&', ('name', 'ilike', 'Parth Gajjar'),
+    ('company_id.name', '=', 'Odoo')]
+    partner = PartnerObj.search(domain)
 
 
 class LibraryMember(models.Model):
